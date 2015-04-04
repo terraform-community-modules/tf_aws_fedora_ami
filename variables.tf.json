@@ -1,0 +1,36 @@
+{
+  "variable": {
+    "all_amis": {
+      "description": "The AMI to use",
+      "default": {
+        "21-us-east-1-atomic-hvm": "ami-78bafa10",
+        "21-us-west-2-atomic-hvm": "ami-fd075ccd",
+        "21-us-west-1-atomic-hvm": "ami-7cedf539",
+        "21-eu-west-1-atomic-hvm": "ami-dd3fb0aa",
+        "21-eu-central-1-atomic-hvm": "ami-7adae967",
+        "21-ap-southeast-1-atomic-hvm": "ami-02e9c350",
+        "21-ap-northeast-1-atomic-hvm": "ami-34243f35",
+        "21-ap-southeast-2-atomic-hvm": "ami-6388fc59",
+        "21-sa-east-1-atomic-hvm": "ami-d516aac8",
+        "21-us-east-1-base-pv": "ami-d2d999ba",
+        "21-us-west-2-base-pv": "ami-13326923",
+        "21-us-west-1-base-pv": "ami-d0e3fb95",
+        "21-eu-west-1-base-pv": "ami-cdc846ba",
+        "21-eu-central-1-base-pv": "ami-5ed9ea43",
+        "21-ap-southeast-1-base-pv": "ami-02edc750",
+        "21-ap-northeast-1-base-pv": "ami-22d6cd23",
+        "21-ap-southeast-2-base-pv": "ami-e5f480df",
+        "21-sa-east-1-base-pv": "ami-690cb074",
+        "21-us-east-1-base-hvm": "ami-acd999c4",
+        "21-us-west-2-base-hvm": "ami-15326925",
+        "21-us-west-1-base-hvm": "ami-dce3fb99",
+        "21-eu-west-1-base-hvm": "ami-b7c846c0",
+        "21-eu-central-1-base-hvm": "ami-5cd9ea41",
+        "21-ap-southeast-1-base-hvm": "ami-06edc754",
+        "21-ap-northeast-1-base-hvm": "ami-20d6cd21",
+        "21-ap-southeast-2-base-hvm": "ami-ddf480e7",
+        "21-sa-east-1-base-hvm": "ami-650cb078"
+      }
+    }
+  }
+}
