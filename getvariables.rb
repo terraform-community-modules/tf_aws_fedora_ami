@@ -4,6 +4,9 @@ require 'json'
 require 'nokogiri'
 require 'open-uri'
 
+# This is hilariously bad, but it's the best I've been able to do to find Fedora AMIs.
+# If anyone has a sane JSON data source to point me at, I'll be very grateful.
+
 I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS = {
   'US East (N. Virginia)'          => 'us-east-1',
   'US West (Oregon)'               => 'us-west-2',
@@ -16,14 +19,16 @@ I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS = {
   'South America East (Sāo Paulo)' => 'sa-east-1'
 }
 
-page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/"))   
+page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/"))
+# WHY?
 stuff = Hash[page.css("button[data-target='.atomic-EC2']").first.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i.parent.css('td') }.map do |i|
   ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-atomic-hvm", i[1].content]
 end]
-#                                                                 DAMNIT
+#                                                                      MY EYES
 stuff.merge! Hash[page.css("button[data-target='.base-EC2-PV']").first.parent.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
   ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-pv", i[1].content]
 end]
+#                                                                                             DAMNIT
 stuff.merge! Hash[page.css("button[data-target='.base-EC2']").first.parent.parent.css('tbody')[0].css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
   ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-hvm", i[1].content]
 end]
