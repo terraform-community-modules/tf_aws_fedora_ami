@@ -1,5 +1,5 @@
 variable "version" {
-  defailt = "21"
+  default = "22"
 }
 variable "region" {}
 variable "distribution" {}

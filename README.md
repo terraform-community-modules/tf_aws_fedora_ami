@@ -11,7 +11,7 @@ and then looks up the one you want given the input variables
 
 ## Input variables
 
-  * version - 21 (the current version, and the default)
+  * version - 21 or 22 (the current version, and the default)
   * region - E.g. eu-central-1
   * distribution - base/atomic
   * virttype - hvm/pv
