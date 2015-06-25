@@ -43,3 +43,12 @@ existing in future. I have no idea how I'll actually resolve this in future...
 
 I recommend that you include this module by specific SHA for stability!
 
+## Maintainer notes for supporting a new version
+
+1. Update VERSION constant in *getvariables.rb* to new version
+2. Run *make*
+3. Check *variables.tf.json* has been updated with 27 new AMI ids. 
+4. If any errors run *make clean*. Update code in *getvariables.rb* to work with updated download site and go back to step 2.
+5. Update main.tf to default to new version
+6. Update this readme to indicate new default version
+
