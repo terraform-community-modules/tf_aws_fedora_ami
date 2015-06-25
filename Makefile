@@ -2,9 +2,9 @@
 
 all: variables.tf.json
 
-variables.tf.json:
+variables.tf.json: getvariables.rb 
 	ruby getvariables.rb
 
 clean:
-	rm -f variables.tf.json
+	git checkout -- variables.tf.json
 
