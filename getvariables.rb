@@ -4,6 +4,9 @@ require 'json'
 require 'nokogiri'
 require 'open-uri'
 
+# Fedora Cloud Version expected to be on https://getfedora.org/en/cloud/download/ 
+VERSION = 22
+
 # This is hilariously bad, but it's the best I've been able to do to find Fedora AMIs.
 # If anyone has a sane JSON data source to point me at, I'll be very grateful.
 
@@ -27,16 +30,16 @@ stuff = variables["variable"]["all_amis"]["default"]
 page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/atomic.html"))
 # WHY?
 stuff.merge! Hash[page.css("button[data-target='.atomic-EC2']").first.parent.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i.parent.css('td') }.map do |i|
-  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-atomic-hvm", i[1].content]
+  ["#{VERSION}-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-atomic-hvm", i[1].content]
 end]
 page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/"))
 #                                                                      MY EYES
 stuff.merge! Hash[page.css("button[data-target='.base-EC2-PV']").first.parent.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
-  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-pv", i[1].content]
+  ["#{VERSION}-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-pv", i[1].content]
 end]
 #                                                                                             DAMNIT
 stuff.merge! Hash[page.css("button[data-target='.base-EC2']").first.parent.parent.css('tbody')[0].css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
-  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-hvm", i[1].content]
+  ["#{VERSION}-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-hvm", i[1].content]
 end]
 
 output = {
