@@ -19,19 +19,26 @@ I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS = {
   'South America East (Sāo Paulo)' => 'sa-east-1'
 }
 
-page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/"))
+# Get the current AMI IDs in variables.tf.json
+variables = JSON.parse( IO.read('variables.tf.json') )
+stuff = variables["variable"]["all_amis"]["default"]
+
+# Append the new set of AMI IDs from the download page
+page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/atomic.html"))
 # WHY?
-stuff = Hash[page.css("button[data-target='.atomic-EC2']").first.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i.parent.css('td') }.map do |i|
-  ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-atomic-hvm", i[1].content]
+stuff.merge! Hash[page.css("button[data-target='.atomic-EC2']").first.parent.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i.parent.css('td') }.map do |i|
+  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-atomic-hvm", i[1].content]
 end]
+page = Nokogiri::HTML(open("https://getfedora.org/en/cloud/download/"))
 #                                                                      MY EYES
 stuff.merge! Hash[page.css("button[data-target='.base-EC2-PV']").first.parent.parent.css('tbody').css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
-  ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-pv", i[1].content]
+  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-pv", i[1].content]
 end]
 #                                                                                             DAMNIT
 stuff.merge! Hash[page.css("button[data-target='.base-EC2']").first.parent.parent.css('tbody')[0].css("td[class='hidden-xs']").map { |i| i = i.parent.css('td') }.map do |i|
-  ["21-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-hvm", i[1].content]
+  ["22-#{I_AM_REALLY_SORRY_I_HAVE_TO_DO_THIS[i[0].content]}-base-hvm", i[1].content]
 end]
+
 output = {
   "variable" => {
     "all_amis" => {
